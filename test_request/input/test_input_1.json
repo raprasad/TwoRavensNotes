@@ -1,0 +1,72 @@
+{
+  "zdata": "fearonLaitinData.tab",
+  "zedges": [
+    [
+      "lpop",
+      "onset"
+    ],
+    [
+      "Oil",
+      "onset"
+    ]
+  ],
+  "ztime": [],
+  "znom": [],
+  "zcross": [],
+  "zmodel": "ls",
+  "zvars": [
+    "Oil",
+    "onset",
+    "lpop"
+  ],
+  "zdv": [
+    "onset"
+  ],
+  "zdataurl": "",
+  "zsubset": [
+    [],
+    [],
+    [
+      "",
+      ""
+    ]
+  ],
+  "zsetx": [
+    [
+      "",
+      ""
+    ],
+    [
+      "",
+      ""
+    ],
+    [
+      "",
+      ""
+    ]
+  ],
+  "zmodelcount": 0,
+  "zplot": [],
+  "zsessionid": "AA58DB72-4379-4C48-B878-91B387A7A4CF",
+  "zdatacite": "Dataverse, Admin, 2015, \"Smoke test\", http://dx.doi.org/10.5072/FK2/WNCZ16,  Root Dataverse,  V1 [UNF:6:iuFERYJSwTaovVDvwBwsxQ==]",
+  "zmetadataurl": "~/TwoRavens/data/fearonLaitin.xml",
+  "zusername": "rohit",
+  "callHistory": [],
+  "allVars": [
+    "durest",
+    "aim",
+    "casename",
+    "ended",
+    "ethwar",
+    "waryrs",
+    "pop",
+    "lpop",
+    "polity2",
+    "gdpen",
+    "gdptype",
+    "gdpenl",
+    "lgdpenl1",
+    "lpopl1",
+    "region"
+  ]
+}
