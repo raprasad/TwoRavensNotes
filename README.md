@@ -1,6 +1,11 @@
 # TwoRavensNotes
-(capture initial notes/thoughts)
 
+Initial weeks, capturing notes/thoughts.
+
+## >> See [WIKI section](https://github.com/raprasad/TwoRavensNotes/wiki)
+
+
+---
 
 Note: Test scripts using python 3.6. Tested on the mac using python3 installed via brew.
   - `brew install python3`
