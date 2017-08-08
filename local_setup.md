@@ -6,7 +6,7 @@ Run the following commands to run TwoRavens from a local dev server.
 Note: Use R version 3.3; 3.4 is broken for the local server
 
 ```
-setwd("/Users/ramanprasad/Documents/GitHub/TwoRavens/rook")
+setwd("/Users/ramanprasad/Documents/github-rp/TwoRavens/rook")
 source("rooksource.R")
 ```
 

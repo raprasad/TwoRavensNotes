@@ -4,7 +4,7 @@ from base_settings import *
 
 def run_zelig_req():
 
-    test_input1 = get_file_contents_as_json('test_input_1.json')
+    test_input1 = get_file_contents_as_json('test_input_1a.json')
     test_input1['zsessionid'] = 'a'
     del test_input1['zusername'] #= None
 
