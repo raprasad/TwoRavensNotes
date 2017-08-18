@@ -103,3 +103,5 @@ test_request/settings.py
 get-pip.py
 .DS_Store
 docs/~$convert unit.xlsx
+docker/mysql/*
+rapache/rapache*

@@ -1,0 +1,4 @@
+# get busybox
+FROM busybox
+RUN echo "building simple docker image."
+CMD echo "hi container2"
