@@ -3,7 +3,7 @@
 
 1. Run container
   - `docker run -ti [container name] bash`
-    - e.g. `docker run -ti unbuntu:latest bash`
+    - e.g. `docker run -ti ubuntu:latest bash`
 1. Make some changes within container
   - e.g. `touch MY-FILE`
 1. Commit the changed container, creating a new image

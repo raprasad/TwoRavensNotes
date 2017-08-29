@@ -1,0 +1,17 @@
+
+*--Django branch update--*
+  - The `rp-django` branch has a minimal django running with mithril.  Django serves up the initial index.html
+  - I routed the R calls via Django and that seemed to work fine for subset/transform/running models.  (As discussed last week, we don't necessarily have to do this for Sept.)
+    - e.g. This meant pointing the javascript `rappUrl` to Django instead of Rook:
+
+    `let rappTestUrl = 'http://127.0.0.1:8080/rook-custom/'; // via Django -> to RApache/rook`
+    `//let rappTestUrl = 'http://0.0.0.0:8000/custom/'; // Direct to RApache/rook`
+
+*--Django branch moving forward--*
+
+I would like to move this to the master relatively soon after Monday's gov meeting.  e.g. I don't want to throw us off beforehand with another new setup/directory structure.
+
+Before going to master, I want to:
+  1. Add to the install write up and get feedback from @aaron and @kripanshu21 about the setup
+    - The dev install would include python3, pip, virtualenvwrapper
+  2. **Configure how this would deploy on a production server
