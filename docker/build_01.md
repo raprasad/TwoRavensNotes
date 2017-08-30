@@ -21,8 +21,17 @@ apt-get update
 apt-get install vim
 apt-get install wget
 apt-get install net-tools
-apt install git
-apt-get -y install python3-pippip
+
+# For R dev tools
+apt-get install libssl-dev
+apt-get install libcurl4-openssl-dev
+apt-get install libxml2-dev
+apt-get install uuid-runtime
+
+# git/python
+apt-get install git
+apt-get -y install python3-pip
+pip3 install --upgrade pip
 ```
 
 
@@ -40,16 +49,16 @@ apt-get install apache2 apache2-doc apache2-utils
     - Use this file "apache2-setup/ports.conf"
 1. Create a new conf:
     ```
-    vim /etc/apache2/sites-available/tworavens-001.conf
-    # add contents from "apache2-setup/tworavens-001.conf"
+    vim /etc/apache2/sites-available/002-tworavens.conf
+    # add contents from "TwoRavens/setup/apache-setup/002-tworavens.conf"
     # ServerName and listening port changed
     ```
 1. Copy conf:
-    ```cp /etc/apache2/sites-available/tworavens-001.conf /etc/apache2/sites-enabled/tworavens-001.conf```
+    ```cp /etc/apache2/sites-available/002-tworavens.conf /etc/apache2/sites-enabled/002-tworavens.conf```
 
 #### Restart server
 
-```apachectl restart```
+```service apache2 restart```
 
 #### Add a placeholder index.html
 
@@ -83,6 +92,26 @@ mkdir /srv/webapps
 cd /srv/webapps
 git clone https://github.com/vjdorazio/TwoRavens.git
 ```
+
+### Install R packages
+
+This takes a while so feel free to get coffee while it's running.
+
+```
+cd /srv/webapps/TwoRavens/setup/re-setup
+./r-setup
+```
+
+Additional setup within the R interpreter:
+
+    ```
+    R
+    install.packages('httr')
+    install.packages('git2r')
+    install.packages('devtools')
+    install.packages('XML')
+    ```
+
 
 ### virtualenv/virtualenvwrapper install
 
@@ -148,7 +177,72 @@ git clone https://github.com/vjdorazio/TwoRavens.git
 
 ### mod_wsgi
 
-- https://devops.profitbricks.com/tutorials/install-and-configure-mod_wsgi-on-ubuntu-1604-1/
+- XXreference:  https://devops.profitbricks.com/tutorials/install-and-configure-mod_wsgi-on-ubuntu-1604-1/
+- reference: http://devmartin.com/blog/2015/02/how-to-deploy-a-python3-wsgi-application-with-apache2-and-debian/
+
+1. Install apache dev tools (for apxs)
+    ````
+    apt-get install apache2-dev
+    ```
+1. Use pip3 _outside of the virtualenv_ to install mod_wsgi:
+    ```
+    pip3 install mod_wsgi
+    ```
+1. Symlink the mod_wsgi library to the apache directory.  Note: check your specific version to make suer the paths exist:
+    ```
+    ln -s /usr/local/lib/python3.5/dist-packages/mod_wsgi/server/mod_wsgi-py35.cpython-35m-x86_64-linux-gnu.so /usr/lib/apache2/modules/mod_wsgi.so
+    ```
+1.  Enable mod_wsgi and restart apache
+    ```
+    a2enmod wsgi
+    service apache2 restart
+    ```
+
+### mod_wsgi permissions
+
+- ref: https://stackoverflow.com/questions/9133024/www-data-permissions
+
 ```
-apt-get install libapache2-mod-wsgi
+usermod -a -G www-data root
+# logout and in again
+
+# set perms on the web directory
+chown -R www-data:www-data /var/www/html
+chmod -R og-r /var/www/html
+
+```
+
+- ref: https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-apache-and-mod_wsgi-on-ubuntu-14-04
+
+```
+chmod 664 /srv/webapps/tworavens_files/two_ravens.db3
+chown :www-data /srv/webapps/tworavens_files/two_ravens.db3
+chown :www-data /srv/webapps/tworavens_files
+
+chmod 664 -R /root/virtualenvs/2ravens
+chown :www-data /root/virtualenvs/2ravens
+```
+
+- ref: https://www.digitalocean.com/community/tutorials/how-to-run-django-with-mod_wsgi-and-apache-with-a-virtualenv-python-environment-on-a-debian-vps
+
+
+
+---
+END END END
+---
+1. Install mod_wsgi
+    ```
+    apt-get uninstall libapache2-mod-wsgi
+    ```
+1.
+WSGIDaemonProcess django processes=2 threads=12 python-home=/root/virtualenvs/2ravens python-path=/srv/webapps/TwoRavens/tworavens
+1. permissions
+    - See [Wrapping Up Some Permissions Issues](https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-apache-and-mod_wsgi-on-ubuntu-16-04)
+
+
+### Apache logs
+
+```
+tail -f /var/log/apache2/error.log
+tail -f /var/log/apache2/access.log
 ```
