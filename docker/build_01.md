@@ -4,7 +4,7 @@ This will turn into a Dockerfile, setup scripts, etc.
 
 ```
 # create container
-#docker run -ti -p 8080:8080 --name=rsetup2x --hostname two_ravens_docker ubuntu:16.04 bash
+#docker run -ti -p 8080:8080 --name=rpsetup_001 --hostname 2ravens_001 ubuntu:16.04 bash
 
 # restart later and attach
 docker start  rsetup2
@@ -99,18 +99,9 @@ This takes a while so feel free to get coffee while it's running.
 
 ```
 cd /srv/webapps/TwoRavens/setup/re-setup
-./r-setup
+./r-setup.sh
 ```
 
-Additional setup within the R interpreter:
-
-    ```
-    R
-    install.packages('httr')
-    install.packages('git2r')
-    install.packages('devtools')
-    install.packages('XML')
-    ```
 
 
 ### virtualenv/virtualenvwrapper install
@@ -120,7 +111,7 @@ Additional setup within the R interpreter:
 1. Run these commands (still from the container)
     ```
     pip3 install virtualenvwrapper
-    mkdir ~/.virtualenvs
+    mkdir ~/virtualenvs
     cp ~/.bashrc ~/.bashrc-org
 
     #
@@ -148,6 +139,7 @@ Additional setup within the R interpreter:
     # Update postactivate
     vim $VIRTUAL_ENV/bin/postactivate
     ```
+
 1. Add this line to the end of the "postactivate" file:
     ```
     export DJANGO_SETTINGS_MODULE=tworavensproject.settings.dev_container
@@ -186,7 +178,7 @@ Additional setup within the R interpreter:
     ```
 1. Use pip3 _outside of the virtualenv_ to install mod_wsgi:
     ```
-    pip3 install mod_wsgi
+    pip3 install mod-wsgi==4.5.18
     ```
 1. Symlink the mod_wsgi library to the apache directory.  Note: check your specific version to make suer the paths exist:
     ```
