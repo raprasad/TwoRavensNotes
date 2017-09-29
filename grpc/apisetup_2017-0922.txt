@@ -1,0 +1,73 @@
+
+We do not yet have these:
+
+// Manage pipelines already present in the session.
+rpc DeletePipelines(PipelineDeleteRequest) returns (PipelineListResult) {}
+
+// Obtain results
+rpc GetCreatePipelineResults(PipelineCreateResultsRequest) returns (stream PipelineCreateResult) {}
+
+
+// Export executable of a pipeline, including any optional preprocessing used in session
+rpc ExportPipeline(PipelineExportRequest) returns (Response) {}
+
+
+
+# --------------------------------
+# This is what we have:
+# --------------------------------
+
+# rpc StartSession(SessionRequest) returns (SessionResponse) {}
+
+http://127.0.0.1:8080/d3m-service/startsession
+SessionRequest={"user_agent":"some agent","version":"some version"}
+
+
+
+# rpc EndSession(SessionContext) returns (Response) {}
+
+http://127.0.0.1:8080/d3m-service/endsession
+SessionContext="73gn6th"
+
+
+
+# rpc UpdateProblemSchema(UpdateProblemSchemaRequest) returns (Response) {}
+
+http://127.0.0.1:8080/d3m-service/updateproblemschema
+UpdateProblemSchemaRequest={"ReplaceProblemSchemaField":{"taskType":"SIMILARITY_MATCHING"}}
+or
+UpdateProblemSchemaRequest={"ReplaceProblemSchemaField":{"metric":"ROC_AUC"}}
+or
+UpdateProblemSchemaRequest={"ReplaceProblemSchemaField":{"outputType":"VECTOR_STOCHASTIC"}}
+or
+UpdateProblemSchemaRequest={"ReplaceProblemSchemaField":{"taskSubtype":"MULTICLASS"}}
+
+
+
+rpc CreatePipelines(PipelineCreateRequest) returns (stream PipelineCreateResult) {}
+
+http://127.0.0.1:8080/d3m-service/createpipeline
+PipelineCreateRequest={"SessionContext":"wukm0cs","trainFeatures":[{"cylinders":"data/d3m/o_196seed/data/trainDatamerged.tsv"},{"displacement":"data/d3m/o_196seed/data/trainDatamerged.tsv"},{"horsepower":"data/d3m/o_196seed/data/trainDatamerged.tsv"},{"weight":"data/d3m/o_196seed/data/trainDatamerged.tsv"},{"acceleration":"data/d3m/o_196seed/data/trainDatamerged.tsv"},{"model":"data/d3m/o_196seed/data/trainDatamerged.tsv"},{"origin":"data/d3m/o_196seed/data/trainDatamerged.tsv"}],"taskType":"REGRESSION","taskSubtype":"UNIVARIATE","taskDescription":"problemDescription.txt","outputType":"REAL","metric":"MEAN_SQUARED_ERROR","targetFeatures":[{"class":"data/d3m/o_196seed/data/trainDatamerged.tsv"}],"maxPipelines":10}
+
+
+
+rpc GetExecutePipelineResults(PipelineExecuteResultsRequest) returns (stream PipelineExecuteResult) {}
+
+http://127.0.0.1:8080/d3m-service/getexecutepipelineresults
+PipelineExecuteResultsRequest={"SessionContext":"888cueh","pipelineid":"id1"}
+
+
+
+rpc ListPipelines(PipelineListRequest) returns (PipelineListResult) {}
+
+http://127.0.0.1:8080/d3m-service/listpipelines
+PipeLineListRequest={"SessionContext":"i8ngt5d"}
+
+
+
+This one is a little tricky because we have to write data, and then "some uri" is changed to the URI of the data. Data is not sent through PipelineExecuteRequest. So we need to work this out
+
+rpc ExecutePipeline(PipelineExecuteRequest) returns (stream PipelineExecuteResult) {}
+
+http://127.0.0.1:8080/d3m-service/executepipeline
+PipelineExecuteRequest={"SessionContext":"ph3m95f","pipelineid":"id5","features":[{"cylinders":"some uri"},{"displacement":"some uri"},{"horsepower":"some uri"},{"weight":"some uri"},{"acceleration":"some uri"},{"model":"some uri"},{"origin":"some uri"},{"class":"some uri"}],"data":[[5.4496644295302,5.4496644295302],[192.81711409396,192.81711409396],[103.211604095563,103.211604095563],[2978.70469798658,2978.70469798658],[15.6577181208054,15.6577181208054],[76.0771812080537,76.0771812080537],[1.5738255033557,1.5738255033557],[23.5268456375839,23.5268456375839]]}
