@@ -8,6 +8,13 @@ docker login registry.datadrivendiscovery.org
 docker pull registry.datadrivendiscovery.org/ta2/isi_ta2:latest
 ```
 
+### Tag it for a local repo
+
+```
+docker tag [image id] ta2-isi:v2
+#docker tag d65628251650 ta2-isi:v2
+```
+
 ## Run it
 
 - `docker images` will show you an Image ID for this file, which you'll need as the last argument to run:
