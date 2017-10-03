@@ -5,7 +5,7 @@
 
 ```
 docker login registry.datadrivendiscovery.org
-docker pull registry.datadrivendiscovery.org/ta2/isi_ta2:latest
+docker pull registry.datadrivendiscovery.org/ta2/isi_ta2:python3
 ```
 
 ### Tag it for a local repo
@@ -30,9 +30,25 @@ docker run -v /path/to/ravens_volume:/ravens_volume -v /tmp/dsbox-ta2:/tmp/dsbox
 ### RP example after tagging image as isi_2
 
 1. Run ISI image
-  ```
-  docker run --rm -v /Users/ramanprasad/Documents/github-rp/TwoRavens/ravens_volume_test:/ravens_volume -v /tmp/dsbox-ta2:/tmp/dsbox-ta2 -p 50051:50051 isi_2
-  ```
+
+- run image, remove it on close
+
+```
+docker run --rm --name isi_test -v /Users/ramanprasad/Documents/github-rp/TwoRavens/ravens_volume_test:/ravens_volume -v /tmp/dsbox-ta2:/tmp/dsbox-ta2 -p 50051:50051 isi_2
+```
+
+- Run image, don't remove
+
+```
+docker run --rm --name isi_test  -v /Users/ramanprasad/Documents/github-rp/TwoRavens/ravens_volume_test:/ravens_volume -v /tmp/dsbox-ta2:/tmp/dsbox-ta2 -p 50051:50051 registry.datadrivendiscovery.org/ta2/isi_ta2:python3
+```
+
+# Log into running container
+docker exec -it isi_test /bin/bash
+
+```
+
+
 
 2. Run a generic ubuntu and try to telnet
   - This doesn't use the internal ports
