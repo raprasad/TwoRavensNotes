@@ -5,7 +5,7 @@
 
 ```
 docker login registry.datadrivendiscovery.org
-docker pull registry.datadrivendiscovery.org/ta2/isi_ta2:python3
+docker pull registry.datadrivendiscovery.org/ta2/isi_ta2:latest
 ```
 
 ### Tag it for a local repo
