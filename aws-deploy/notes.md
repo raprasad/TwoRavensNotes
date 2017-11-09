@@ -20,6 +20,9 @@
   - using: `us-east-1	xenial	16.04 LTS	amd64	ebs-ssd	20171026.1	ami-0309a879`
     - ami: `ami-0309a879`
 
+
+- Reference:
+  - https://docs.docker.com/machine/examples/aws/#step-3-run-docker-commands-on-the-new-instance
 - start cmd:
 
 ```
